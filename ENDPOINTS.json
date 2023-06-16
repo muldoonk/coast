@@ -1,0 +1,6 @@
+{
+    "gtfs": {
+        "static": "https://passio3.com/COAST/passioTransit/gtfs/google-transit.zip",
+        "realtimeVehicle": "https://passio3.com/COAST/passioTransit/gtfs/realtime/vehiclePositions"
+    }
+}
