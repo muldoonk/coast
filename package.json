@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "startPassioGo": "node ./scripts/fetchPassioGoData.js",
-    "startGtfs": "node ./scripts/fetchGtfsData.js",
+    "start": "node scripts/fetchData",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
