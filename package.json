@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "startPassioGo": "node ./scripts/fetchPassioGoData.js",
+    "startGtfs": "node ./scripts/fetchGtfsData.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,8 +21,13 @@
   "homepage": "https://github.com/muldoonk/coast#readme",
   "dependencies": {
     "adm-zip": "^0.5.10",
+    "axios": "^1.5.1",
     "fs": "^0.0.1-security",
+    "lowdb": "^6.1.1",
+    "mongodb": "^6.2.0",
+    "node-cron": "^3.0.2",
     "node-fetch": "^2.6.11",
+    "node-json-db": "^2.3.0",
     "pbf": "^3.2.1"
   }
 }

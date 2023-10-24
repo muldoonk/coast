@@ -2,7 +2,7 @@
 
 // FeedMessage ========================================
 
-var FeedMessage = exports.FeedMessage = {};
+var FeedMessage = {};
 
 FeedMessage.read = function (pbf, end) {
     return pbf.readFields(FeedMessage._readField, {header: null, entity: []}, end);
@@ -18,7 +18,7 @@ FeedMessage.write = function (obj, pbf) {
 
 // FeedHeader ========================================
 
-var FeedHeader = exports.FeedHeader = {};
+var FeedHeader = {};
 
 FeedHeader.read = function (pbf, end) {
     return pbf.readFields(FeedHeader._readField, {gtfs_realtime_version: "", incrementality: {"value":0,"options":{}}, timestamp: 0}, end);
@@ -47,7 +47,7 @@ FeedHeader.Incrementality = {
 
 // FeedEntity ========================================
 
-var FeedEntity = exports.FeedEntity = {};
+var FeedEntity = {};
 
 FeedEntity.read = function (pbf, end) {
     return pbf.readFields(FeedEntity._readField, {id: "", is_deleted: false, trip_update: null, vehicle: null, alert: null, shape: null}, end);
@@ -71,7 +71,7 @@ FeedEntity.write = function (obj, pbf) {
 
 // TripUpdate ========================================
 
-var TripUpdate = exports.TripUpdate = {};
+var TripUpdate = {};
 
 TripUpdate.read = function (pbf, end) {
     return pbf.readFields(TripUpdate._readField, {trip: null, vehicle: null, stop_time_update: [], timestamp: 0, delay: 0, trip_properties: null}, end);
@@ -192,7 +192,7 @@ TripUpdate.TripProperties.write = function (obj, pbf) {
 
 // VehiclePosition ========================================
 
-var VehiclePosition = exports.VehiclePosition = {};
+var VehiclePosition = {};
 
 VehiclePosition.read = function (pbf, end) {
     return pbf.readFields(VehiclePosition._readField, {trip: null, vehicle: null, position: null, current_stop_sequence: 0, stop_id: "", current_status: {"value":2,"options":{}}, timestamp: 0, congestion_level: 0, occupancy_status: 0, occupancy_percentage: 0, multi_carriage_details: []}, end);
@@ -325,7 +325,7 @@ VehiclePosition.CarriageDetails.write = function (obj, pbf) {
 
 // Alert ========================================
 
-var Alert = exports.Alert = {};
+var Alert = {};
 
 Alert.read = function (pbf, end) {
     return pbf.readFields(Alert._readField, {active_period: [], informed_entity: [], cause: {"value":1,"options":{}}, effect: {"value":8,"options":{}}, url: null, header_text: null, description_text: null, tts_header_text: null, tts_description_text: null, severity_level: {"value":1,"options":{}}, image: null, image_alternative_text: null, cause_detail: null, effect_detail: null}, end);
@@ -482,7 +482,7 @@ Alert.SeverityLevel = {
 
 // TimeRange ========================================
 
-var TimeRange = exports.TimeRange = {};
+var TimeRange = {};
 
 TimeRange.read = function (pbf, end) {
     return pbf.readFields(TimeRange._readField, {start: 0, end: 0}, end);
@@ -498,7 +498,7 @@ TimeRange.write = function (obj, pbf) {
 
 // Position ========================================
 
-var Position = exports.Position = {};
+var Position = {};
 
 Position.read = function (pbf, end) {
     return pbf.readFields(Position._readField, {latitude: 0, longitude: 0, bearing: 0, odometer: 0, speed: 0}, end);
@@ -520,7 +520,7 @@ Position.write = function (obj, pbf) {
 
 // TripDescriptor ========================================
 
-var TripDescriptor = exports.TripDescriptor = {};
+var TripDescriptor = {};
 
 TripDescriptor.read = function (pbf, end) {
     return pbf.readFields(TripDescriptor._readField, {trip_id: "", route_id: "", direction_id: 0, start_time: "", start_date: "", schedule_relationship: 0}, end);
@@ -577,7 +577,7 @@ TripDescriptor.ScheduleRelationship = {
 
 // VehicleDescriptor ========================================
 
-var VehicleDescriptor = exports.VehicleDescriptor = {};
+var VehicleDescriptor = {};
 
 VehicleDescriptor.read = function (pbf, end) {
     return pbf.readFields(VehicleDescriptor._readField, {id: "", label: "", license_plate: "", wheelchair_accessible: {"value":0,"options":{}}}, end);
@@ -616,7 +616,7 @@ VehicleDescriptor.WheelchairAccessible = {
 
 // EntitySelector ========================================
 
-var EntitySelector = exports.EntitySelector = {};
+var EntitySelector = {};
 
 EntitySelector.read = function (pbf, end) {
     return pbf.readFields(EntitySelector._readField, {agency_id: "", route_id: "", route_type: 0, trip: null, stop_id: "", direction_id: 0}, end);
@@ -640,7 +640,7 @@ EntitySelector.write = function (obj, pbf) {
 
 // TranslatedString ========================================
 
-var TranslatedString = exports.TranslatedString = {};
+var TranslatedString = {};
 
 TranslatedString.read = function (pbf, end) {
     return pbf.readFields(TranslatedString._readField, {translation: []}, end);
@@ -670,7 +670,7 @@ TranslatedString.Translation.write = function (obj, pbf) {
 
 // TranslatedImage ========================================
 
-var TranslatedImage = exports.TranslatedImage = {};
+var TranslatedImage = {};
 
 TranslatedImage.read = function (pbf, end) {
     return pbf.readFields(TranslatedImage._readField, {localized_image: []}, end);
@@ -702,7 +702,7 @@ TranslatedImage.LocalizedImage.write = function (obj, pbf) {
 
 // Shape ========================================
 
-var Shape = exports.Shape = {};
+var Shape = {};
 
 Shape.read = function (pbf, end) {
     return pbf.readFields(Shape._readField, {shape_id: "", encoded_polyline: ""}, end);
@@ -715,3 +715,7 @@ Shape.write = function (obj, pbf) {
     if (obj.shape_id) pbf.writeStringField(1, obj.shape_id);
     if (obj.encoded_polyline) pbf.writeStringField(2, obj.encoded_polyline);
 };
+
+export {
+    FeedMessage
+}
