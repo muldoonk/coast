@@ -5,7 +5,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm i && node scripts/fetchData",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
