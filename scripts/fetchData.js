@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import endpoints from '../ENDPOINTS.js';
 import { FeedMessage } from '../gtfs-realtime.js';
 import { MongoClient } from 'mongodb';
+import axios from 'axios';
 import cron from 'node-cron';
 
 // Connection URL
@@ -19,7 +20,7 @@ const main = async () => {
   cron.schedule('* 5-21 * * 1-6', async () => {
     console.log("Fetching...");
 
-    const records = await fetchPasioGoData()
+    const records = await fetchPasioGoData();
     if (records && records.length) {
         await collection.insertMany(records)
     }
