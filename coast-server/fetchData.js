@@ -1,7 +1,7 @@
 import Pbf from 'pbf';
 import fetch from 'node-fetch';
-import endpoints from '../ENDPOINTS.js';
-import { FeedMessage } from '../gtfs-realtime.js';
+import endpoints from './ENDPOINTS.js';
+import { FeedMessage } from './gtfs-realtime.js';
 import { MongoClient } from 'mongodb';
 import axios from 'axios';
 import cron from 'node-cron';
@@ -14,15 +14,28 @@ const main = async () => {
   await client.connect();
   console.log('Connected successfully to server');
   const db = client.db('admin');
-  const collection = db.collection('coast');
+  const passioCollection = db.collection('passio');
+  const gtfsCollection = db.collection('gtfs');
 
+
+  const timestamp = Date.now();
   // every minute between 5:00am and 9:00pm monday thru saturday
   cron.schedule('* 5-21 * * 1-6', async () => {
     console.log("Fetching...");
 
-    const records = await fetchPasioGoData();
-    if (records && records.length) {
-        await collection.insertMany(records)
+    const passengerData = await fetchPasioGoData();
+    const stopData = await fetchGtfsData();
+
+    if (passengerData && passengerData.length) {
+      const formattedData = passengerData.map(
+        ({ paxLoad, bus, busId, totalCap, latitude, longitude }) => ({paxLoad, bus: bus.trim(), busId, totalCap, latitude, longitude, timestamp})
+      );
+      await passioCollection.insertMany(formattedData)
+    }
+    if (stopData && stopData.length) {
+      const formattedData = stopData.map(
+        ({trip, vehicle, position, stop_id, current_stop_sequence }) => ({trip, vehicle, position, stop_id, current_stop_sequence, timestamp}))
+      await gtfsCollection.insertMany(formattedData)
     }
   });
 }
