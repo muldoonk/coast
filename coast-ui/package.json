@@ -8,13 +8,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@vuejs-community/vue-filter-date-format": "^1.7.1",
     "axios": "^1.6.0",
     "chartjs-adapter-moment": "^1.0.1",
+    "chartjs-plugin-zoom": "^2.0.1",
+    "i": "^0.3.7",
     "moment": "^2.29.4",
+    "npm": "^10.2.1",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
     "vue-chartjs": "^5.2.0",
-    "vuetify": "^3.3.23"
+    "vue-moment": "^4.1.0",
+    "vuetify": "^3.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",

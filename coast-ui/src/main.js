@@ -9,28 +9,31 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-const myCustomLightTheme = {
-    dark: false,
-    colors: {
-        background: '#F1F1F9',
-    },
-  }
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import { faCircleHalfStroke, faSort, faSortUp, faSortDown} from '@fortawesome/free-solid-svg-icons'
+
+/* add icons to the library */
+library.add(faCircleHalfStroke, faSort, faSortUp, faSortDown)
 
 const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'myCustomLightTheme',
-    themes: {
-        myCustomLightTheme
-    },
-  },
+    defaultTheme: 'light'
+  }
 })
 
 
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(vuetify);
+app.use(vuetify)
+.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')
