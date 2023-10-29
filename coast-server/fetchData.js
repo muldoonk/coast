@@ -2,25 +2,21 @@ import Pbf from 'pbf';
 import fetch from 'node-fetch';
 import endpoints from './ENDPOINTS.js';
 import { FeedMessage } from './gtfs-realtime.js';
-import { MongoClient } from 'mongodb';
+import { connect, model } from 'mongoose';
+import { PassioEntry, passioCollectionName, mongoUrl, gtfsCollectionName, GtfsEntry } from './mongo_schemas.js';
 import axios from 'axios';
 import cron from 'node-cron';
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
-
 const main = async () => {
-  await client.connect();
-  console.log('Connected successfully to server');
-  const db = client.db('admin');
-  const passioCollection = db.collection('passio');
-  const gtfsCollection = db.collection('gtfs');
+  // Connection URL
+  await connect(mongoUrl);
+  const passioCollection = model(passioCollectionName, PassioEntry, passioCollectionName);
+  const gtfsCollection = model(gtfsCollectionName, GtfsEntry, gtfsCollectionName);
 
 
-  const timestamp = Date.now();
   // every minute between 5:00am and 9:00pm monday thru saturday
   cron.schedule('* 5-21 * * 1-6', async () => {
+    const timestamp = Date.now();
     console.log("Fetching...");
 
     const passengerData = await fetchPasioGoData();
@@ -40,13 +36,21 @@ const main = async () => {
   });
 }
 
-// Does not contain passenger info we are interested in. Not using for now.
+
+/**
+ * Contains relevant data such as current bus stop and speed.
+ * @returns GTFS Stream data parsed into usable array.
+ */
 const fetchGtfsData = async() => {
     const fetchResult = await fetch(endpoints.gtfs.realtimeVehicle).then((res) => res.arrayBuffer());
     const parsedResult = FeedMessage.read(new Pbf(fetchResult));
     return parsedResult.entity.map((i) => i.vehicle);
 }
 
+/**
+ * Contains relevant data for passenger load and total capacity.
+ * @returns PassioGo data parsed into usable array.
+ */
 const fetchPasioGoData = async() => {
     const result = await axios({method: 'POST', url: endpoints.passioGo.mapGetBusses, data: "json=%7B%22s0%22%3A%222962%22%2C%22sA%22%3A1%7D",})
     const resultObj = result.data.buses;

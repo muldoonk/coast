@@ -13,3 +13,4 @@ scp -i $1 -r coast-server ec2-user@$2:/home/ec2-user/coast-server
 ssh -i $1 ec2-user@$2 "npm i --prefix /home/ec2-user/coast-server"
 ssh -i $1 ec2-user@$2 "sudo systemctl daemon-reload"
 ssh -i $1 ec2-user@$2 "sudo systemctl restart coast-server"
+ssh -i $1 ec2-user@$2 "sudo systemctl status coast-server"
