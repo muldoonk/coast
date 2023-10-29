@@ -12,7 +12,8 @@ const main = async () => {
   await connect(mongoUrl);
   const passioCollection = model(passioCollectionName, PassioEntry, passioCollectionName);
   const gtfsCollection = model(gtfsCollectionName, GtfsEntry, gtfsCollectionName);
-
+  let mostRecentPaxRecords = new Map();
+  let mostRecentStopRecords = new Map();
 
   // every minute between 5:00am and 9:00pm monday thru saturday
   cron.schedule('* 5-21 * * 1-6', async () => {
@@ -23,14 +24,27 @@ const main = async () => {
     const stopData = await fetchGtfsData();
 
     if (passengerData && passengerData.length) {
-      const formattedData = passengerData.map(
-        ({ paxLoad, bus, busId, totalCap, latitude, longitude }) => ({paxLoad, bus: bus.trim(), busId, totalCap, latitude, longitude, timestamp})
-      );
-      await passioCollection.insertMany(formattedData)
+      const formattedData = [];
+      passengerData.forEach((p) => {
+        const busId = p.bus.trim();
+        const mostRecentLoad = mostRecentPaxRecords.get(busId);
+        // if the bus does not exist or has changed from last entry, then add
+        if (!mostRecentLoad || mostRecentLoad !== p.paxLoad) {
+          formattedData.push({paxLoad: p.paxLoad, bus: busId, totalCap: p.totalCap, latitude: p.latitude, longitude: p.longitude, timestamp})
+          mostRecentPaxRecords.set(busId, p.paxLoad)
+        }
+      });
+      await passioCollection.insertMany(formattedData);
     }
+
     if (stopData && stopData.length) {
-      const formattedData = stopData.map(
-        ({trip, vehicle, position, stop_id, current_stop_sequence }) => ({trip, vehicle, position, stop_id, current_stop_sequence, timestamp}))
+      const formattedData = [];
+      stopData.forEach((s) => {
+        let mostRecentStop = mostRecentStopRecords.get(s.trip.trip_id);
+        if (!mostRecentStop || mostRecentStop !== s.stop_id) {
+          formattedData.push({trip: s.trip, vehicle: s.vehicle, position: s.position, stop_id: s.stop_id, current_stop_sequence: s.current_stop_sequence, timestamp})
+        }
+      });
       await gtfsCollection.insertMany(formattedData)
     }
   });
