@@ -28,8 +28,9 @@ const main = async () => {
       passengerData.forEach((p) => {
         const busId = p.bus.trim();
         const mostRecentLoad = mostRecentPaxRecords.get(busId);
-        // if the bus does not exist or has changed from last entry, then add
-        if (!mostRecentLoad || mostRecentLoad !== p.paxLoad) {
+
+        // if the bus does not exist or has changed from last entry, then add. Using double equals to check undefined or null.
+        if (mostRecentLoad == null || mostRecentLoad !== p.paxLoad) {
           formattedData.push({paxLoad: p.paxLoad, bus: busId, totalCap: p.totalCap, latitude: p.latitude, longitude: p.longitude, timestamp})
           mostRecentPaxRecords.set(busId, p.paxLoad)
         }
