@@ -19,9 +19,6 @@
     <v-app-bar>
         <v-app-bar-title>COAST Data Explorer</v-app-bar-title>
         <v-spacer></v-spacer>
-        <v-btn @click="store.toggleTheme">
-          <font-awesome-icon icon="fa-solid fa-circle-half-stroke" />
-        </v-btn>
       </v-app-bar>
       <v-main>
         <v-container>
@@ -31,6 +28,7 @@
                             :max="store.todayDate" 
                             :min="store.dataCollectionStartDate" 
                             @input="store.updateAllChartData" 
+                            theme="light"
                             type="date">
               </v-text-field>
             </v-col>
@@ -42,8 +40,10 @@
             <NoDataAlert></NoDataAlert>
           </v-row>
           <v-row>
-            <PaxOverTime></PaxOverTime>
-            <MaxPaxTable></MaxPaxTable>
+            <v-col class="chart-column">
+              <PaxOverTime></PaxOverTime>
+              <MaxPaxTable></MaxPaxTable>
+            </v-col>
           </v-row>
 
       </v-container>
@@ -52,8 +52,10 @@
 </template>
 
 <style>
-.v-card {
-  height: 500px;
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .v-table {

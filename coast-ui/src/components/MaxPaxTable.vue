@@ -48,7 +48,6 @@
 </script>
 
 <template> 
-    <v-col cols="12" md="6">
         <v-card>
             <v-card-title>Max Passenger Loads</v-card-title>
             <v-table>
@@ -73,7 +72,6 @@
                     </tbody>
             </v-table>
         </v-card>
-    </v-col>
 </template>
 
 <style scoped>
