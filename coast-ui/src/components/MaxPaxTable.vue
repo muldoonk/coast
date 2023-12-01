@@ -48,7 +48,7 @@
 </script>
 
 <template> 
-        <v-card>
+        <v-card class="chart-card">
             <v-card-title>Max Passenger Loads</v-card-title>
             <v-table>
                 <thead class="sticky-header">
@@ -64,8 +64,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr
-                        v-for="item in tableData" >
+                    <tr v-for="item in tableData" >
                         <td>{{ item.paxLoad }}</td>
                         <td>{{ moment(item.timestamp).format('MM/DD, h:mm a') }}</td>
                     </tr>

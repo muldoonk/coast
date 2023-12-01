@@ -45,6 +45,7 @@
                 unit: 'millisecond'
             },
         },
+        responsive: true,
         plugins: {
             zoom: {
                 zoom: {
@@ -82,7 +83,7 @@
 </script>
 
 <template> 
-        <v-card>
+        <v-card class="chart-card">
             <v-card-title>Passenger Load Over Time</v-card-title>
             <div class="chart-container">
                 <Line :data="lineData" :options="chartOptions"/>
@@ -92,8 +93,11 @@
 
 <style scoped>
 .chart-container {
-    height: 500px;
     display: flex;
+    flex-grow: 1;
+    max-height: 350px;
+    height: 350px;
     justify-content: center;
+    align-items: center;
 }
 </style>

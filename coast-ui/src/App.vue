@@ -7,7 +7,6 @@
   import NoDataAlert from './components/NoDataAlert.vue';
   const store = useCounterStore();
   const { selectedBus, selectedDate } = storeToRefs(store);
-
   onMounted(async () => {
     await store.updatePassengerChartData();
     await store.updateMaxPassengerTable();
@@ -27,9 +26,9 @@
               <v-text-field v-model="selectedDate" 
                             :max="store.todayDate" 
                             :min="store.dataCollectionStartDate" 
-                            @input="store.updateAllChartData" 
-                            theme="light"
-                            type="date">
+                            type="date"
+                            theme="dark"
+                            @input="store.updateAllChartData" >
               </v-text-field>
             </v-col>
             <v-col cols="12" md="6">
@@ -39,23 +38,25 @@
           <v-row>
             <NoDataAlert></NoDataAlert>
           </v-row>
-          <v-row>
-            <v-col class="chart-column">
+          <v-row class="chart-column">
+            <v-col class="grid">
               <PaxOverTime></PaxOverTime>
               <MaxPaxTable></MaxPaxTable>
             </v-col>
           </v-row>
-
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <style>
-.chart-column {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.grid {
+	display: grid;
+	column-gap: 30px;
+	row-gap: 30px;
+	grid-template-rows: 400px;
+	width: 100%;
+	grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
 }
 
 .v-table {

@@ -12,7 +12,6 @@ import { storeToRefs } from 'pinia';
 
 <template>
   <v-col class="alerts-container">
-    <v-alert :border="'start'" variant="tonal" color="#C51162">This site has gone live very recently. Stay tuned while we gather more data and add more graphs!</v-alert>
     <v-alert v-if="shouldShowAlert" 
              color="info" 
              variant="tonal" 

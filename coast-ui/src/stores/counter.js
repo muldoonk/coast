@@ -1,8 +1,7 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios';
 import moment from 'moment';
-
 
 export const useCounterStore = defineStore('counter', () => {
 
@@ -19,7 +18,7 @@ export const useCounterStore = defineStore('counter', () => {
     await updateMaxPassengerTable()
   }
 
-  const baseUrl = 'http://34.204.70.71:3000';
+  const baseUrl = import.meta.env.VITE_MONGO_URL;
   const getParams = () => ({ buses: [selectedBus.value], date: selectedDate.value });
 
   async function updatePassengerChartData() {
