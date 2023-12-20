@@ -12,11 +12,10 @@ import { storeToRefs } from 'pinia';
 
 <template>
   <v-col class="alerts-container">
-    <v-alert border="start" variant="tonal" color="#C51162">This site has gone live very recently. Stay tuned while we gather more data and add more graphs!</v-alert>
     <v-alert v-if="shouldShowAlert" 
              color="info" 
              variant="tonal" 
-             border="start">
+             :border="'start'">
              Looks like we are missing some data. Try selecting a different day or a different bus line! Note: Bus service does not run on Sundays.
     </v-alert>
   </v-col>

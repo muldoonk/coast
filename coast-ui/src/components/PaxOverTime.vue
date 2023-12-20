@@ -19,7 +19,7 @@
     import { Line } from 'vue-chartjs'
     import 'chartjs-adapter-moment';
     const store = useCounterStore();
-    const { passengerOverTimeChartData, selectedBus, chartBorderColor } = storeToRefs(store);
+    const { passengerOverTimeChartData, selectedBus } = storeToRefs(store);
 
 
 
@@ -45,6 +45,7 @@
                 unit: 'millisecond'
             },
         },
+        responsive: true,
         plugins: {
             zoom: {
                 zoom: {
@@ -67,7 +68,7 @@
         const set =  {
                     label: `Bus ${selectedBus.value}`,
                     backgroundColor: '#f87979',
-                    borderColor: chartBorderColor.value,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
                     data: passengerOverTimeChartData.value,
                     stepped: true
         }
@@ -82,13 +83,21 @@
 </script>
 
 <template> 
-    <v-col cols="12" md="6">
-        <v-card>
+        <v-card class="chart-card">
             <v-card-title>Passenger Load Over Time</v-card-title>
-            <Line :data="lineData" :options="chartOptions"/>
+            <div class="chart-container">
+                <Line :data="lineData" :options="chartOptions"/>
+            </div>
         </v-card>
-    </v-col>
 </template>
 
 <style scoped>
+.chart-container {
+    display: flex;
+    flex-grow: 1;
+    max-height: 350px;
+    height: 350px;
+    justify-content: center;
+    align-items: center;
+}
 </style>
