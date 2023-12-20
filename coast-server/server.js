@@ -4,6 +4,7 @@ import { connect, model } from 'mongoose';
 import { PassioEntry, passioCollectionName, mongoUrl, gtfsCollectionName, GtfsEntry } from './mongo_schemas.js';
 import cors from 'cors';
 import moment from 'moment'
+import {Schema} from 'mongoose';
 
 const main = async () => {
     const app = express();
@@ -30,7 +31,7 @@ const main = async () => {
       if (req.query.buses && req.query.buses.length) {
         query.bus = { $in: req.query.buses }
       }
-      const result = await passioCollection.find(query);
+      const result = await passioCollection.find(query).limit(1000); // shouldn't be that high, but just in case 
       res.send(result);
     });
 

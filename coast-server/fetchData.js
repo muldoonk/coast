@@ -14,7 +14,6 @@ const main = async () => {
   const gtfsCollection = model(gtfsCollectionName, GtfsEntry, gtfsCollectionName);
   let mostRecentPaxRecords = new Map();
   let mostRecentStopRecords = new Map();
-
   // every minute between 5:00am and 9:00pm monday thru saturday
   cron.schedule('* 5-21 * * 1-6', async () => {
     const timestamp = Date.now();
@@ -34,6 +33,7 @@ const main = async () => {
           mostRecentPaxRecords.set(busId, p.paxLoad)
         }
       });
+
       await passioCollection.insertMany(formattedData);
     }
 
@@ -41,7 +41,8 @@ const main = async () => {
       const formattedData = [];
       stopData.forEach((s) => {
         let mostRecentStop = mostRecentStopRecords.get(s.trip.trip_id);
-        if (!mostRecentStop || mostRecentStop !== s.stop_id) {
+        // using loose equality here for either undefined or null. 0 is an acceptable value.
+        if (mostRecentStop == null || mostRecentStop !== s.stop_id) {
           formattedData.push({trip: s.trip, vehicle: s.vehicle, position: s.position, stop_id: s.stop_id, current_stop_sequence: s.current_stop_sequence, timestamp})
         }
       });
@@ -60,7 +61,6 @@ const fetchGtfsData = async() => {
     const parsedResult = FeedMessage.read(new Pbf(fetchResult));
     return parsedResult.entity.map((i) => i.vehicle);
 }
-
 /**
  * Contains relevant data for passenger load and total capacity.
  * @returns PassioGo data parsed into usable array.
