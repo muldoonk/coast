@@ -12,18 +12,20 @@ export const useCounterStore = defineStore('counter', () => {
   const selectedDate = ref(todayDate);
   const passengerOverTimeChartData = ref([]);
   const maxPassengerData = ref([]);
+  const busLines = ref([]);
 
   async function updateAllChartData() {
     await updatePassengerChartData();
     await updateMaxPassengerTable()
   }
 
-  const baseUrl = import.meta.env.VITE_MONGO_URL;
+  const baseUrl = 'http://localhost:3000';
   const getParams = () => ({ buses: [selectedBus.value], date: selectedDate.value });
 
   async function updatePassengerChartData() {
     passengerOverTimeChartData.value = await axios.request({
        method: 'GET', url: `${baseUrl}/chartData`,
+       crossDomain: true,
        params: getParams()
     })
     .then((response) => response.data.map((obj) => ({ x: obj.timestamp, y: obj.paxLoad})))
@@ -37,6 +39,13 @@ export const useCounterStore = defineStore('counter', () => {
     }).then((result) => result.data)
   }
 
+  async function getBusLines() {
+    busLines.value = await axios.request({
+      method: 'GET', 
+      url: `${baseUrl}/buses`,
+    }).then((res) => res.data)
+  }
+
   return { 
     passengerOverTimeChartData, 
     updatePassengerChartData, 
@@ -46,6 +55,8 @@ export const useCounterStore = defineStore('counter', () => {
     updateAllChartData, 
     maxPassengerData,
     todayDate,
-    dataCollectionStartDate
+    dataCollectionStartDate,
+    getBusLines,
+    busLines
   }
 });
