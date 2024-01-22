@@ -19,7 +19,7 @@ export const useCounterStore = defineStore('counter', () => {
     await updateMaxPassengerTable()
   }
 
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = import.meta.env.VITE_MONGO_URL;
   const getParams = () => ({ buses: [selectedBus.value], date: selectedDate.value });
 
   async function updatePassengerChartData() {
@@ -34,6 +34,7 @@ export const useCounterStore = defineStore('counter', () => {
   async function updateMaxPassengerTable() {
     maxPassengerData.value = await axios.request({ 
       method: 'GET', 
+      crossDomain: true,
       url: `${baseUrl}/maxPassenger`, 
       params: getParams()
     }).then((result) => result.data)
@@ -42,6 +43,7 @@ export const useCounterStore = defineStore('counter', () => {
   async function getBusLines() {
     busLines.value = await axios.request({
       method: 'GET', 
+      crossDomain: true,
       url: `${baseUrl}/buses`,
     }).then((res) => res.data)
   }
