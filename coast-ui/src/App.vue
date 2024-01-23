@@ -14,12 +14,11 @@
 
 <template>
   <v-app>
-      <v-app-bar :elevation="0">
-        <v-app-bar-title>COAST Data Explorer</v-app-bar-title>
-        <v-spacer></v-spacer>
-      </v-app-bar>
       <v-main>
         <v-container>
+          <div class="title">
+            <div>A visual explorer for data collected from COAST bus service in the Seacoast region of New Hampshire.</div>
+          </div>
           <div class="content-container">
             <div class="bus-select">
               <v-select v-model="selectedBus" 
@@ -57,10 +56,22 @@
   background: linear-gradient(45deg, #ff31454f, #cadaff91) !important;
 }
 
+.v-application {
+  background-color: #eaead70f !important;
+}
+
+.v-container {
+    height: 80%;
+    display: flex; 
+    flex-direction: column;
+} 
+
 .content-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 
   .v-card {
     padding: 10px;
@@ -69,23 +80,32 @@
     width: 100%;
   }
 }
+
 .v-table {
   height: 100%;
 }
+
 .bus-select {
   width: fit-content;
   font-weight: lighter;
   display: flex;
   gap: 10px;
+
   .v-select .v-select__selection {
     margin-top: 0;
   }
+}
 
-  // .v-input {
-  //   font-size: 24px; // large since it's page header
-  // }
-  // .v-field {
-  //   font-size: 24px;
-  // }
+.title {
+  font-size: 24px;
+  display: flex;
+  justify-content:  center;
+
+  div {
+    width: fit-content;
+    background-color: #f080803d;
+    padding: 10px;
+    border-radius: 2px;
+  }
 }
 </style>
