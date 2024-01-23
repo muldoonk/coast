@@ -42,10 +42,15 @@
         scales: {
             x: {
                 type: 'time',
-                unit: 'millisecond'
+                unit: 'millisecond', 
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 20
+                }
             },
         },
         responsive: true,
+        maintainAspectRatio: true,
         plugins: {
             zoom: {
                 zoom: {
@@ -83,10 +88,10 @@
 </script>
 
 <template> 
-        <v-card class="chart-card">
-            <v-card-title>Passenger Load Over Time</v-card-title>
-            <div class="chart-container">
-                <Line :data="lineData" :options="chartOptions"/>
+        <v-card variant="elevated" elevation="5">
+            <div>Number of Passengers Over Time</div>
+                <div class="chart-container">
+                    <Line :data="lineData" :options="chartOptions" :height="'350px'"/>
             </div>
         </v-card>
 </template>
