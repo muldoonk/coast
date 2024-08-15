@@ -19,7 +19,7 @@ export const useCounterStore = defineStore('counter', () => {
     await updateMaxPassengerTable()
   }
 
-  const baseUrl = 'http://ec2-44-221-101-161.compute-1.amazonaws.com';
+  const baseUrl = import.meta.env.VITE_MONGO_URL;
   const getParams = () => ({ buses: [selectedBus.value], date: selectedDate.value });
 
   async function updatePassengerChartData() {
