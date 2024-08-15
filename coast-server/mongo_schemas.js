@@ -30,4 +30,4 @@ export const routesCollectionName = 'routes';
 
 export const gtfsCollectionName = 'gtfs';
 
-export const mongoUrl = 'mongodb://127.0.0.1/admin'
+export const mongoUrl = 'mongodb://44.221.101.161:27017/admin'
