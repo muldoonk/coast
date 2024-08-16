@@ -72,8 +72,8 @@
     const lineData = computed(() => {
         const set =  {
                     label: `Bus ${selectedBus.value}`,
-                    backgroundColor: '#f87979',
-                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                    backgroundColor: '#DC0073',
+                    borderColor: 'rgb(247,225,158)',
                     data: passengerOverTimeChartData.value,
                     stepped: true
         }
@@ -88,16 +88,26 @@
 </script>
 
 <template> 
-        <v-card variant="elevated" elevation="5">
-            <div>Number of Passengers Over Time</div>
+            <div class="chart-and-subtitle">
                 <div class="chart-container">
                     <Line :data="lineData" :options="chartOptions" :height="'350px'"/>
+                </div>
+                <div>Number of Passengers Over Time</div>
             </div>
-        </v-card>
 </template>
 
 <style scoped>
+
+.chart-and-subtitle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
 .chart-container {
+    width: 100%;
     display: flex;
     flex-grow: 1;
     max-height: 350px;

@@ -11,14 +11,14 @@ import { storeToRefs } from 'pinia';
 </script>
 
 <template>
-  <v-col class="alerts-container">
+  <div class="alerts-container">
     <v-alert v-if="shouldShowAlert" 
              color="info" 
              variant="tonal" 
              :border="'start'">
              Looks like we are missing some data. Try selecting a different day or a different bus line! Note: Bus service does not run on Sundays.
     </v-alert>
-  </v-col>
+  </div>
 
 </template>
 
