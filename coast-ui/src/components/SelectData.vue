@@ -35,6 +35,16 @@
 </template>
 
 <style>
+
+@media (max-width: 500px) {
+  .bus-select {
+    flex-wrap: wrap;
+    .v-select {
+      display: block;
+    }
+  }
+}
+
 .bus-select {
   width: fit-content;
   font-weight: lighter;
@@ -43,6 +53,10 @@
 
   .v-select .v-select__selection {
     margin-top: 0;
+  }
+
+  .v-input__details {
+    display: none;
   }
 }
 </style>

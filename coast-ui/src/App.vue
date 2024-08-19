@@ -107,4 +107,11 @@ main {
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 40px;
+  }
+}
+
 </style>
