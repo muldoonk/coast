@@ -14,7 +14,7 @@
 
 <template>
           <div class="bus-select">
-          <v-select v-model="selectedBus" 
+          <v-select dense v-model="selectedBus" 
                   variant="underlined"
                   @update:modelValue="store.updateAllChartData" 
                   :items="busLines" 
@@ -22,7 +22,7 @@
                   item-value="route_short_name">
                   <template v-slot:prepend>Explore data for bus line</template>
           </v-select>
-          <v-text-field v-model="selectedDate" 
+          <v-text-field dense v-model="selectedDate" 
                         :max="store.todayDate" 
                         variant="underlined"
                         :min="store.dataCollectionStartDate" 
@@ -39,6 +39,13 @@
 @media (max-width: 500px) {
   .bus-select {
     flex-wrap: wrap;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    .bus-select .v-select, .bus-select .v-text-field {
+      width: 100%;
+    }
     .v-select {
       display: block;
     }
